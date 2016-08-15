@@ -5,7 +5,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
-namespace CIT195.TBQuestGame.Sprint3
+namespace Demo_ConsoleUtilityHelperClasses
 {
     /// <summary>
     /// class to hold utility methods for the console
