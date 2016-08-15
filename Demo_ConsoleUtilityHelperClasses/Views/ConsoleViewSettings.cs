@@ -11,8 +11,8 @@ namespace Demo_ConsoleUtilityHelperClasses
         //
         // window position
         //
-        public const int WINDOw_TOP = 100;
-        public const int WINDOW_LEFT = 100;
+        public const int WINDOW_TOP = 10;
+        public const int WINDOW_LEFT = 10;
 
         //
         // window size

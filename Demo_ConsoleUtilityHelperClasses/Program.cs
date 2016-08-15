@@ -10,7 +10,9 @@ namespace Demo_ConsoleUtilityHelperClasses
     {
         static void Main(string[] args)
         {
+            ConsoleView myConsoleView = new ConsoleView();
 
+            myConsoleView.DisplayWelcomeScreen();
         }
     }
 }

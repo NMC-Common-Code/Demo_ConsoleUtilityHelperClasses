@@ -8,15 +8,29 @@ using System.Threading.Tasks;
 namespace Demo_ConsoleUtilityHelperClasses
 {
     /// <summary>
-    /// class to hold utility methods for the console
+    /// console utility class
     /// </summary>
     public static class ConsoleUtil
     {
 
-        private static int _windowWidth;
-        private static int _windowHeight;
-        private static int _headerTitle;
+        private static int _windowWidth = 79;
+        private static int _windowHeight = 40;
 
+        private static int _windowLeft = 20;
+        private static int _windowTop = 20;
+
+        private static string _headerText = "- set header text -";
+        private static string _footerText = "- set footer text - ";
+
+        private static ConsoleColor _headerBackgroundColor = ConsoleColor.White;
+        private static ConsoleColor _headerForegroundColor = ConsoleColor.Red;
+
+        private static ConsoleColor _footerBackgroundColor = ConsoleColor.White;
+        private static ConsoleColor _footerForegroundColor = ConsoleColor.Red;
+
+        private static ConsoleColor _bodyBackgroundColor = ConsoleColor.Black;
+        private static ConsoleColor _bodyForegroundColor = ConsoleColor.White;
+        
         public static int WindowWidth
         {
             get { return _windowWidth; }
@@ -29,10 +43,52 @@ namespace Demo_ConsoleUtilityHelperClasses
             set { _windowHeight = value; }
         }
         
-        public static int HeaderTitle
+        public static int WindowLeft
         {
-            get { return _headerTitle; }
-            set { _headerTitle = value; }
+            get { return _windowLeft; }
+            set { _windowLeft = value; }
+        }
+
+        public static int WindowTop
+        {
+            get { return _windowTop; }
+            set { _windowTop = value; }
+        }
+
+        public static string HeaderText
+        {
+            get { return _headerText; }
+            set { _headerText = value; }
+        }
+        
+        public static string FooterText
+        {
+            get { return _footerText; }
+            set { _footerText = value; }
+        }
+        
+        public static ConsoleColor HeaderBackgroundColor
+        {
+            get { return _headerBackgroundColor = ConsoleColor.White; }
+            set { _headerBackgroundColor = value; }
+        }
+
+        public static ConsoleColor HeaderForegroundColor
+        {
+            get { return _headerForegroundColor = ConsoleColor.Red; }
+            set { _headerForegroundColor = value; }
+        }
+
+        public static ConsoleColor FooterBackgroundColor
+        {
+            get { return _footerBackgroundColor = ConsoleColor.White; }
+            set { _footerBackgroundColor = value; }
+        }
+
+        public static ConsoleColor FooterForegroundColor
+        {
+            get { return _footerForegroundColor = ConsoleColor.Red; }
+            set { _footerForegroundColor = value; }
         }
 
         /// <summary>
@@ -49,7 +105,7 @@ namespace Demo_ConsoleUtilityHelperClasses
             Console.BackgroundColor = ConsoleColor.White;
 
             Console.WriteLine(ConsoleUtil.FillStringWithSpaces(_windowWidth));
-            Console.WriteLine(ConsoleUtil.Center("The Deadly Dinner Party Game", _windowWidth));
+            Console.WriteLine(ConsoleUtil.Center(_headerText, _windowWidth));
             Console.WriteLine(ConsoleUtil.FillStringWithSpaces(_windowWidth));
 
             Console.ResetColor();

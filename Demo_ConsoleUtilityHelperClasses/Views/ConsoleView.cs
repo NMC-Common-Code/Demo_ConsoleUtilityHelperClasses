@@ -19,7 +19,7 @@ namespace Demo_ConsoleUtilityHelperClasses
         //
         // window location
         //
-        private const int WINDOW_TOP = ConsoleViewSettings.WINDOw_TOP;
+        private const int WINDOW_TOP = ConsoleViewSettings.WINDOW_TOP;
         private const int WINDOW_LEFT = ConsoleViewSettings.WINDOW_LEFT;
 
         //
@@ -44,6 +44,10 @@ namespace Demo_ConsoleUtilityHelperClasses
         /// </summary>
         public ConsoleView()
         {
+            InitializeConsoleWindow();
+
+            ConsoleUtil.DisplayReset();
+
 
         }
 
@@ -58,28 +62,33 @@ namespace Demo_ConsoleUtilityHelperClasses
         {
             Console.SetWindowSize(WINDOW_WIDTH, WINDOW_HEIGHT);
             Console.SetWindowPosition(WINDOW_LEFT, WINDOW_TOP);
+
+            ConsoleUtil.WindowWidth = WINDOW_WIDTH;
+            ConsoleUtil.WindowHeight = WINDOW_HEIGHT;
+
+            ConsoleUtil.HeaderText = "The Console Utility Demo";
         }
 
-        /// <summary>
-        /// reset display to default size and colors including the header
-        /// </summary>
-        public void DisplayReset()
-        {
-            Console.SetWindowSize(WINDOW_WIDTH, WINDOW_HEIGHT);
+        ///// <summary>
+        ///// reset display to default size and colors including the header
+        ///// </summary>
+        //public void DisplayReset()
+        //{
+        //    Console.SetWindowSize(WINDOW_WIDTH, WINDOW_HEIGHT);
 
-            Console.Clear();
-            Console.ResetColor();
+        //    Console.Clear();
+        //    Console.ResetColor();
 
-            Console.ForegroundColor = ConsoleColor.Red;
-            Console.BackgroundColor = ConsoleColor.White;
+        //    Console.ForegroundColor = ConsoleColor.Red;
+        //    Console.BackgroundColor = ConsoleColor.White;
 
-            Console.WriteLine(ConsoleUtil.FillStringWithSpaces(WINDOW_WIDTH));
-            Console.WriteLine(ConsoleUtil.Center("The Deadly Dinner Party Game", WINDOW_WIDTH));
-            Console.WriteLine(ConsoleUtil.FillStringWithSpaces(WINDOW_WIDTH));
+        //    Console.WriteLine(ConsoleUtil.FillStringWithSpaces(WINDOW_WIDTH));
+        //    Console.WriteLine(ConsoleUtil.Center("The Deadly Dinner Party Game", WINDOW_WIDTH));
+        //    Console.WriteLine(ConsoleUtil.FillStringWithSpaces(WINDOW_WIDTH));
 
-            Console.ResetColor();
-            Console.WriteLine();
-        }
+        //    Console.ResetColor();
+        //    Console.WriteLine();
+        //}
 
         /// <summary>
         /// display the Continue prompt
@@ -103,7 +112,7 @@ namespace Demo_ConsoleUtilityHelperClasses
         /// </summary>
         public void DisplayExitPrompt()
         {
-            DisplayReset();
+            ConsoleUtil.DisplayReset();
 
             Console.CursorVisible = false;
 
@@ -114,6 +123,7 @@ namespace Demo_ConsoleUtilityHelperClasses
 
             System.Environment.Exit(1);
         }
+
 
         /// <summary>
         /// display the welcome screen
@@ -222,7 +232,7 @@ namespace Demo_ConsoleUtilityHelperClasses
                 //
                 // set up display area
                 //
-                DisplayReset();
+                ConsoleUtil.DisplayReset();
                 Console.CursorVisible = false;
 
                 //
