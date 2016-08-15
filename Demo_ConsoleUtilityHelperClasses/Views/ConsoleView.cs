@@ -39,7 +39,6 @@ namespace Demo_ConsoleUtilityHelperClasses
 
         #region CONSTRUCTORS
 
-        // TODO Sprint 3 Mod 05b - modify the ConsoleView constructor to accept the treasure object
         /// <summary>
         /// constructor to create the console view objects
         /// </summary>
@@ -239,8 +238,6 @@ namespace Demo_ConsoleUtilityHelperClasses
                     leftTab + "7. Player's Weapons" + Environment.NewLine +
                     leftTab + "E. Exit" + Environment.NewLine);
 
-                // TODO Sprint 3 Mod 08d - modify the DisplayAllObjectInformation to handle game treasure types and player's treasure
-                // TODO Sprint 3 Mod 24b - modify the DisplayAllObjectInformation to handle game treasure types and player's weapons
                 //
                 // get and process the user's response
                 // note: ReadKey argument set to "true" disables the echoing of the key press

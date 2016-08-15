@@ -12,6 +12,50 @@ namespace Demo_ConsoleUtilityHelperClasses
     /// </summary>
     public static class ConsoleUtil
     {
+
+        private static int _windowWidth;
+        private static int _windowHeight;
+        private static int _headerTitle;
+
+        public static int WindowWidth
+        {
+            get { return _windowWidth; }
+            set { _windowWidth = value; }
+        }
+
+        public static int WindowHeight
+        {
+            get { return _windowHeight; }
+            set { _windowHeight = value; }
+        }
+        
+        public static int HeaderTitle
+        {
+            get { return _headerTitle; }
+            set { _headerTitle = value; }
+        }
+
+        /// <summary>
+        /// reset display to default size and colors including the header
+        /// </summary>
+        public static void DisplayReset()
+        {
+            Console.SetWindowSize(_windowWidth, _windowHeight);
+
+            Console.Clear();
+            Console.ResetColor();
+
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.BackgroundColor = ConsoleColor.White;
+
+            Console.WriteLine(ConsoleUtil.FillStringWithSpaces(_windowWidth));
+            Console.WriteLine(ConsoleUtil.Center("The Deadly Dinner Party Game", _windowWidth));
+            Console.WriteLine(ConsoleUtil.FillStringWithSpaces(_windowWidth));
+
+            Console.ResetColor();
+            Console.WriteLine();
+        }
+
         /// <summary>
         /// wraps text using a list of strings
         /// Original code from Mike Ward's website
@@ -52,6 +96,7 @@ namespace Demo_ConsoleUtilityHelperClasses
 
             return lines;
         }
+
         /// <summary>
         /// center text as a function of the window width with padding on both sides
         /// Note: the method currently assumes the text will fit on one line
