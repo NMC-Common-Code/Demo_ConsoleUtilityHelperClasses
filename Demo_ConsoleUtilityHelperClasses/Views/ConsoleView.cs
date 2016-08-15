@@ -23,12 +23,9 @@ namespace Demo_ConsoleUtilityHelperClasses
         private const int WINDOW_LEFT = ConsoleViewSettings.WINDOW_LEFT;
 
         //
-        // horizontal and vertical margins in console window for display
+        // horizontal margin in console window for display
         //
         private const int DISPLAY_HORIZONTAL_MARGIN = ConsoleViewSettings.DISPLAY_HORIZONTAL_MARGIN;
-        private const int DISPALY_VERITCAL_MARGIN = ConsoleViewSettings.DISPALY_VERITCAL_MARGIN;
-
-
 
         #endregion
 
@@ -45,10 +42,6 @@ namespace Demo_ConsoleUtilityHelperClasses
         public ConsoleView()
         {
             InitializeConsoleWindow();
-
-            ConsoleUtil.DisplayReset();
-
-
         }
 
         #endregion
@@ -66,29 +59,10 @@ namespace Demo_ConsoleUtilityHelperClasses
             ConsoleUtil.WindowWidth = WINDOW_WIDTH;
             ConsoleUtil.WindowHeight = WINDOW_HEIGHT;
 
+            ConsoleUtil.WindowTitle = "Northwestern Michigan College - CIT Department";
+
             ConsoleUtil.HeaderText = "The Console Utility Demo";
         }
-
-        ///// <summary>
-        ///// reset display to default size and colors including the header
-        ///// </summary>
-        //public void DisplayReset()
-        //{
-        //    Console.SetWindowSize(WINDOW_WIDTH, WINDOW_HEIGHT);
-
-        //    Console.Clear();
-        //    Console.ResetColor();
-
-        //    Console.ForegroundColor = ConsoleColor.Red;
-        //    Console.BackgroundColor = ConsoleColor.White;
-
-        //    Console.WriteLine(ConsoleUtil.FillStringWithSpaces(WINDOW_WIDTH));
-        //    Console.WriteLine(ConsoleUtil.Center("The Deadly Dinner Party Game", WINDOW_WIDTH));
-        //    Console.WriteLine(ConsoleUtil.FillStringWithSpaces(WINDOW_WIDTH));
-
-        //    Console.ResetColor();
-        //    Console.WriteLine();
-        //}
 
         /// <summary>
         /// display the Continue prompt
@@ -117,7 +91,7 @@ namespace Demo_ConsoleUtilityHelperClasses
             Console.CursorVisible = false;
 
             Console.WriteLine();
-            DisplayMessage("Thank you for playing our game. Press any key to Exit.");
+            ConsoleUtil.DisplayMessage("Thank you for viewing the demo. Press any key to Exit.");
 
             Console.ReadKey();
 
@@ -130,95 +104,32 @@ namespace Demo_ConsoleUtilityHelperClasses
         /// </summary>
         public void DisplayWelcomeScreen()
         {
-            Console.Clear();
-            Console.ResetColor();
+            ConsoleUtil.DisplayReset();
 
-            Console.ForegroundColor = ConsoleColor.Red;
-            Console.BackgroundColor = ConsoleColor.White;
+            StringBuilder sb = new StringBuilder();
+            sb.Append("This is a demonstration of a utility class ");
+            sb.Append("written by John Velis to manage some of the ");
+            sb.Append("console display tasks when working with console applications.\n\n");
+            ConsoleUtil.DisplayMessage(sb.ToString());
 
-            Console.WriteLine(ConsoleUtil.FillStringWithSpaces(WINDOW_WIDTH));
-            Console.WriteLine(ConsoleUtil.Center("Welcome to", WINDOW_WIDTH));
-            Console.WriteLine(ConsoleUtil.Center("The Deadly Dinner Party Game", WINDOW_WIDTH));
-            Console.WriteLine(ConsoleUtil.FillStringWithSpaces(WINDOW_WIDTH));
-
-            Console.ResetColor();
             Console.WriteLine();
+
+            sb.Clear();
+            sb.AppendFormat("You will be next presented with a menu of options. ");
+            sb.AppendFormat("Choose and option to explore the utility class methods.");
+            ConsoleUtil.DisplayMessage(sb.ToString());
 
             DisplayContinuePrompt();
         }
 
 
-        /// <summary>
-        /// display a message in the message area
-        /// </summary>
-        /// <param name="message">string to display</param>
-        public void DisplayMessage(string message)
-        {
-            //
-            // calculate the message area location on the console window
-            //
-            const int MESSAGE_BOX_TEXT_LENGTH = WINDOW_WIDTH - (2 * DISPLAY_HORIZONTAL_MARGIN);
-            const int MESSAGE_BOX_HORIZONTAL_MARGIN = DISPLAY_HORIZONTAL_MARGIN;
 
-            // message is not an empty line, display text
-            if (message != "")
-            {
-                //
-                // create a list of strings to hold the wrapped text message
-                //
-                List<string> messageLines;
-
-                //
-                // call utility method to wrap text and loop through list of strings to display
-                //
-                messageLines = ConsoleUtil.Wrap(message, MESSAGE_BOX_TEXT_LENGTH, MESSAGE_BOX_HORIZONTAL_MARGIN);
-                foreach (var messageLine in messageLines)
-                {
-                    Console.WriteLine(messageLine);
-                }
-            }
-            // display an empty line
-            else
-            {
-                Console.WriteLine();
-            }
-        }
-
-        /// <summary>
-        /// display a message in the message area without a new line for the prompt
-        /// </summary>
-        /// <param name="message">string to display</param>
-        public void DisplayPromptMessage(string message)
-        {
-            //
-            // calculate the message area location on the console window
-            //
-            const int MESSAGE_BOX_TEXT_LENGTH = WINDOW_WIDTH - (2 * DISPLAY_HORIZONTAL_MARGIN);
-            const int MESSAGE_BOX_HORIZONTAL_MARGIN = DISPLAY_HORIZONTAL_MARGIN;
-
-            //
-            // create a list of strings to hold the wrapped text message
-            //
-            List<string> messageLines;
-
-            //
-            // call utility method to wrap text and loop through list of strings to display
-            //
-            messageLines = ConsoleUtil.Wrap(message, MESSAGE_BOX_TEXT_LENGTH, MESSAGE_BOX_HORIZONTAL_MARGIN);
-
-            for (int lineNumber = 0; lineNumber < messageLines.Count() - 1; lineNumber++)
-            {
-                Console.WriteLine(messageLines[lineNumber]);
-            }
-
-            Console.Write(messageLines[messageLines.Count() - 1]);
-        }
 
         // TODO code - display menu
         /// <summary>
         /// provides a menu with options to display the information of the current objects in the game
         /// </summary>
-        public void DisplayAllObjectInformation()
+        public void DisplayActionMenu()
         {
             bool usingMenu = true;
 
@@ -239,13 +150,10 @@ namespace Demo_ConsoleUtilityHelperClasses
                 // display the menu
                 //
                 Console.WriteLine(
-                    leftTab + "1. Player Information" + Environment.NewLine +
-                    leftTab + "2. Hall Information" + Environment.NewLine +
-                    leftTab + "3. Guest List Information" + Environment.NewLine +
-                    leftTab + "4. Staff List Information" + Environment.NewLine +
-                    leftTab + "5. Treasure Types" + Environment.NewLine +
-                    leftTab + "6. Player's Treasure" + Environment.NewLine +
-                    leftTab + "7. Player's Weapons" + Environment.NewLine +
+                    leftTab + "1. Option 1" + Environment.NewLine +
+                    leftTab + "2. Option 2" + Environment.NewLine +
+                    leftTab + "3. Option 3" + Environment.NewLine +
+                    leftTab + "4. Option 4" + Environment.NewLine +
                     leftTab + "E. Exit" + Environment.NewLine);
 
                 //
@@ -267,16 +175,8 @@ namespace Demo_ConsoleUtilityHelperClasses
                     case '4':
                         //DisplayStaffListInformation();
                         break;
-                    case '5':
-                        //DisplayTreasureTypes();
-                        break;
-                    case '6':
-                        //DisplayPlayersTreasure();
-                        break;
-                    case '7':
-                        //DisplayPlayersWeapons();
-                        break;
                     case 'E':
+                    case 'e':
                         usingMenu = false;
                         break;
                     default:

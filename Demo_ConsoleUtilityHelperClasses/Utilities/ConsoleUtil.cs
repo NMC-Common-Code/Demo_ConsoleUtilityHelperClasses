@@ -12,25 +12,30 @@ namespace Demo_ConsoleUtilityHelperClasses
     /// </summary>
     public static class ConsoleUtil
     {
+        #region FIELDS
 
         private static int _windowWidth = 79;
-        private static int _windowHeight = 40;
+        private static int _windowHeight = 20;
 
         private static int _windowLeft = 20;
         private static int _windowTop = 20;
 
         private static string _headerText = "- set header text -";
-        private static string _footerText = "- set footer text - ";
 
         private static ConsoleColor _headerBackgroundColor = ConsoleColor.White;
         private static ConsoleColor _headerForegroundColor = ConsoleColor.Red;
 
-        private static ConsoleColor _footerBackgroundColor = ConsoleColor.White;
-        private static ConsoleColor _footerForegroundColor = ConsoleColor.Red;
-
         private static ConsoleColor _bodyBackgroundColor = ConsoleColor.Black;
         private static ConsoleColor _bodyForegroundColor = ConsoleColor.White;
-        
+
+        private static string _windowTitle = " - set window title - ";
+
+        private static int _displayHorizontalMargin = 3;
+
+        #endregion
+
+        #region PROPERTIES
+
         public static int WindowWidth
         {
             get { return _windowWidth; }
@@ -61,12 +66,6 @@ namespace Demo_ConsoleUtilityHelperClasses
             set { _headerText = value; }
         }
         
-        public static string FooterText
-        {
-            get { return _footerText; }
-            set { _footerText = value; }
-        }
-        
         public static ConsoleColor HeaderBackgroundColor
         {
             get { return _headerBackgroundColor = ConsoleColor.White; }
@@ -79,17 +78,31 @@ namespace Demo_ConsoleUtilityHelperClasses
             set { _headerForegroundColor = value; }
         }
 
-        public static ConsoleColor FooterBackgroundColor
+        public static ConsoleColor BodyBackgroundColor
         {
-            get { return _footerBackgroundColor = ConsoleColor.White; }
-            set { _footerBackgroundColor = value; }
+            get { return _bodyBackgroundColor = ConsoleColor.White; }
+            set { _bodyBackgroundColor = value; }
         }
 
-        public static ConsoleColor FooterForegroundColor
+        public static ConsoleColor BodyForegroundColor
         {
-            get { return _footerForegroundColor = ConsoleColor.Red; }
-            set { _footerForegroundColor = value; }
+            get { return _bodyForegroundColor = ConsoleColor.Red; }
+            set { _bodyForegroundColor = value; }
         }
+        
+        public static string WindowTitle
+        {
+            get { return _windowTitle; }
+            set { _windowTitle = value; }
+        }
+
+        public static int DisplayHorizontalMargin
+        {
+            get { return _displayHorizontalMargin = 3; }
+            set { _displayHorizontalMargin = value; }
+        }
+
+        #endregion
 
         /// <summary>
         /// reset display to default size and colors including the header
@@ -97,19 +110,88 @@ namespace Demo_ConsoleUtilityHelperClasses
         public static void DisplayReset()
         {
             Console.SetWindowSize(_windowWidth, _windowHeight);
+            Console.Title = _windowTitle;
 
             Console.Clear();
             Console.ResetColor();
 
-            Console.ForegroundColor = ConsoleColor.Red;
-            Console.BackgroundColor = ConsoleColor.White;
+            Console.ForegroundColor = _headerForegroundColor;
+            Console.BackgroundColor = _headerBackgroundColor;
 
             Console.WriteLine(ConsoleUtil.FillStringWithSpaces(_windowWidth));
             Console.WriteLine(ConsoleUtil.Center(_headerText, _windowWidth));
             Console.WriteLine(ConsoleUtil.FillStringWithSpaces(_windowWidth));
 
-            Console.ResetColor();
+            Console.ForegroundColor = _bodyForegroundColor;
+            Console.BackgroundColor = _bodyBackgroundColor;
+
             Console.WriteLine();
+        }
+
+        /// <summary>
+        /// display a message in the message area with a new line
+        /// </summary>
+        /// <param name="message">string to display</param>
+        public static void DisplayMessage(string message)
+        {
+            //
+            // calculate the message area location on the console window
+            //
+            int messageBoxTextLength = _windowWidth - (2 * _displayHorizontalMargin);
+            int messageBoxHorizontalMargin = _displayHorizontalMargin;
+
+            // message is not an empty line, display text
+            if (message != "")
+            {
+                //
+                // create a list of strings to hold the wrapped text message
+                //
+                List<string> messageLines;
+
+                //
+                // call utility method to wrap text and loop through list of strings to display
+                //
+                messageLines = Wrap(message, messageBoxTextLength, messageBoxHorizontalMargin);
+                foreach (var messageLine in messageLines)
+                {
+                    Console.WriteLine(messageLine);
+                }
+            }
+            // display an empty line
+            else
+            {
+                Console.WriteLine();
+            }
+        }
+
+        /// <summary>
+        /// display a message in the message area without a new line for the prompt
+        /// </summary>
+        /// <param name="message">string to display</param>
+        public static void DisplayPromptMessage(string message)
+        {
+            //
+            // calculate the message area location on the console window
+            //
+            int messageBoxTextLength = _windowWidth - (2 * _displayHorizontalMargin);
+            int messageBoxHorizontalMargin = _displayHorizontalMargin;
+
+            //
+            // create a list of strings to hold the wrapped text message
+            //
+            List<string> messageLines;
+
+            //
+            // call utility method to wrap text and loop through list of strings to display
+            //
+            messageLines = Wrap(message, messageBoxTextLength, messageBoxHorizontalMargin);
+
+            for (int lineNumber = 0; lineNumber < messageLines.Count() - 1; lineNumber++)
+            {
+                Console.WriteLine(messageLines[lineNumber]);
+            }
+
+            Console.Write(messageLines[messageLines.Count() - 1]);
         }
 
         /// <summary>
@@ -178,11 +260,11 @@ namespace Demo_ConsoleUtilityHelperClasses
         }
 
         /// <summary>
-        /// convert camelcase to all upper case and spaces
-        /// reference url - http://stackoverflow.com/questions/15458257/how-to-have-enum-values-with-spaces
+        /// convert camelCase to all upper case and spaces
+        /// reference URL - http://stackoverflow.com/questions/15458257/how-to-have-enum-values-with-spaces
         /// </summary>
         /// <param name="s"></param>
-        /// <returns></returns>
+        /// <returns>converted string</returns>
         public static String ToLabelFormat(String s)
         {
             var newStr = Regex.Replace(s, "(?<=[A-Z])(?=[A-Z][a-z])", " ");

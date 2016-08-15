@@ -13,6 +13,8 @@ namespace Demo_ConsoleUtilityHelperClasses
             ConsoleView myConsoleView = new ConsoleView();
 
             myConsoleView.DisplayWelcomeScreen();
+            myConsoleView.DisplayActionMenu();
+
         }
     }
 }
